@@ -74,17 +74,8 @@ void loop() {
       if (client.available()) {
         String data = client.readStringUntil('\n');
         data.trim();
-
         Serial.println("Received Data: " + data);
-
-        // Periksa apakah data dimulai dengan '#' dan diakhiri dengan '*'
-        if (data.startsWith("#") && data.endsWith("*")) {
-          data = data.substring(1, data.length() - 1); // Menghapus '#' dan '*'
-          displayDataOnNextion(data);  // Proses dan simpan data ke SD Card
-        } else {
-          Serial.println("Invalid data format received.");
-        }
-
+        displayDataOnNextion(data);  // Proses dan simpan data ke SD Card    
         lastDataTime = millis();
       }
 
@@ -105,10 +96,6 @@ void loop() {
 }
 
 void displayDataOnNextion(String data) {
-  // Menghilangkan karakter '#' dan '*' dari data
-  data.replace("#", "");
-  data.replace("*", "");
-
   // Array untuk menyimpan nilai parsial data
   String parts[9] = {"0", "0", "0", "0", "0", "HD78101KM", "01/01/2025", "00:00:00", "0"}; // Default values
 
